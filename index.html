@@ -79,7 +79,7 @@ body{font-family:'DM Sans',-apple-system,sans-serif;background:var(--cream);colo
 .reel-wrap::before,.reel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:72px;z-index:2;pointer-events:none;}
 .reel-wrap::before{left:0;background:linear-gradient(to right,var(--cream),transparent);}
 .reel-wrap::after{right:0;background:linear-gradient(to left,var(--cream),transparent);}
-.reel-track{display:flex;gap:12px;padding:8px 40px;animation:slide 50s linear infinite;width:max-content;}
+.reel-track{display:flex;gap:12px;padding:8px 0;animation:slide 50s linear infinite;width:max-content;}
 .reel-track:hover{animation-play-state:paused;}
 @keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .reel-card{width:175px;height:175px;border-radius:14px;flex-shrink:0;position:relative;overflow:hidden;border:1.5px solid var(--peach);transition:transform .3s,box-shadow .3s;cursor:pointer;}
@@ -304,7 +304,7 @@ footer{text-align:center;padding:22px;font-size:12px;color:var(--muted);border-t
   <h2>Memory Reel</h2>
   <p>Hover to pause · Photos from everyone appear here</p>
 </div>
-<div class="reel-wrap">
+<div class="reel-wrap" id="reelWrap" style="visibility:hidden;">
   <div class="reel-track" id="reel"></div>
 </div>
 
@@ -514,8 +514,9 @@ setInterval(tick,1000); tick();
 let reelPhotos=[];
 function buildReel(){
   const track=document.getElementById('reel');
+  const wrap=document.getElementById('reelWrap');
   track.innerHTML='';
-  if(reelPhotos.length===0) return;
+  if(reelPhotos.length===0){ wrap.style.visibility='hidden'; return; }
   let pool=[...reelPhotos];
   while(pool.length<12) pool=[...pool,...reelPhotos];
   const makeCard=({src,caption})=>{
@@ -527,6 +528,8 @@ function buildReel(){
   pool.forEach(p=>track.appendChild(makeCard(p)));
   pool.forEach(p=>track.appendChild(makeCard(p)));
   track.style.animation=`slide ${pool.length*4}s linear infinite`;
+  wrap.style.visibility='visible';
+}
 }
 function refreshReel(photos){ reelPhotos=photos; buildReel(); }
 function clearReelPhotos(){ reelPhotos=[]; }
