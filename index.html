@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Last Semester</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#fdf6ff;
+  --lav:#e5d4ff;
+  --pink:#ffd6ec;
+  --blue:#d6ecff;
+  --text:#2a2a2a;
+}
+
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#fdf6ff,#ffeef8);
+  overflow-x:hidden;
+}
+
+h1,h2{
+  font-family:'Patrick Hand',cursive;
+}
+
+.container{
+  text-align:center;
+  padding:40px 20px;
+}
+
+.toggle{
+  display:inline-flex;
+  background:white;
+  border-radius:50px;
+  padding:5px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.08);
+  margin-bottom:20px;
+  transition:.3s;
+}
+
+.toggle button{
+  border:none;
+  padding:10px 20px;
+  border-radius:50px;
+  background:none;
+  cursor:pointer;
+  font-weight:500;
+  transition:.3s;
+}
+
+.toggle button.active{
+  background:var(--lav);
+}
+
+.countdown{
+  font-size:60px;
+  font-weight:700;
+  margin:20px 0;
+}
+
+.sub{
+  opacity:.7;
+}
+
+button.primary{
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:var(--pink);
+  cursor:pointer;
+  font-weight:600;
+  transition:.3s;
+}
+
+button.primary:hover{
+  transform:scale(1.05);
+}
+
+.memory-strip{
+  margin-top:60px;
+  overflow:hidden;
+  white-space:nowrap;
+  position:relative;
+}
+
+.memory-track{
+  display:inline-block;
+  animation:scroll 40s linear infinite;
+}
+
+.polaroid{
+  display:inline-block;
+  background:white;
+  margin:0 15px;
+  padding:10px 10px 30px;
+  width:200px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  transform:rotate(-2deg);
+  transition:.3s;
+  position:relative;
+}
+
+.polaroid:hover{
+  transform:scale(1.05) rotate(0deg);
+}
+
+.polaroid img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+
+.caption{
+  font-family:'Patrick Hand';
+  margin-top:8px;
+  font-size:18px;
+  display:none;
+}
+
+.polaroid:hover .caption{
+  display:block;
+}
+
+@keyframes scroll{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+.form-section{
+  margin-top:60px;
+  padding:30px;
+  background:rgba(255,255,255,0.6);
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+
+input,textarea{
+  width:90%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+.calendar-modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.calendar{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  width:90%;
+  max-width:700px;
+  max-height:80vh;
+  overflow:auto;
+}
+
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+
+.day{
+  padding:10px;
+  background:var(--blue);
+  border-radius:10px;
+  cursor:pointer;
+  font-size:14px;
+  position:relative;
+}
+
+.holiday{
+  background:var(--pink);
+}
+
+.longweekend{
+  outline:3px solid #ff8bd1;
+}
+
+.note{
+  font-size:10px;
+  margin-top:5px;
+}
+
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:red;
+  animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+  to{transform:translateY(100vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Our Last Semester</h1>
+
+<div class="toggle">
+<button id="mode1" class="active">Last Working Day</button>
+<button id="mode2">Final Exam Day</button>
+</div>
+
+<div class="countdown" id="countdown"></div>
+<div class="sub" id="subtext"></div>
+
+<button class="primary" onclick="openCalendar()">Open Calendar</button>
+
+<div class="memory-strip">
+<div class="memory-track" id="memoryTrack"></div>
+</div>
+
+<div class="form-section">
+<h2>Add a Memory</h2>
+<input type="text" id="memoryText" placeholder="Write something you'll miss...">
+<input type="file" id="memoryImage">
+<button class="primary" onclick="addMemory()">Add</button>
+</div>
+
+</div>
+
+<div class="calendar-modal" id="calendarModal">
+<div class="calendar">
+<h2>Plan the Last Days</h2>
+<div class="calendar-grid" id="calendarGrid"></div>
+<button class="primary" onclick="closeCalendar()">Close</button>
+</div>
+</div>
+
+<script>
+let targetDate = new Date("2026-05-09");
+let notes = JSON.parse(localStorage.getItem("notes")) || {};
+let memories = JSON.parse(localStorage.getItem("memories")) || [];
+
+function updateCountdown(){
+  const now = new Date();
+  const diff = targetDate - now;
+  const days = Math.ceil(diff/(1000*60*60*24));
+  document.getElementById("countdown").innerText = days + " days";
+  document.getElementById("subtext").innerText = "until " + targetDate.toDateString();
+  if(days<=0){launchConfetti();}
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+document.getElementById("mode1").onclick=function(){
+  targetDate=new Date("2026-05-09");
+  this.classList.add("active");
+  mode2.classList.remove("active");
+  updateCountdown();
+}
+document.getElementById("mode2").onclick=function(){
+  targetDate=new Date("2026-05-30");
+  this.classList.add("active");
+  mode1.classList.remove("active");
+  updateCountdown();
+}
+
+function openCalendar(){
+  document.getElementById("calendarModal").style.display="flex";
+  generateCalendar(4,2026);
+}
+
+function closeCalendar(){
+  document.getElementById("calendarModal").style.display="none";
+}
+
+function generateCalendar(month,year){
+  const grid=document.getElementById("calendarGrid");
+  grid.innerHTML="";
+  const firstDay=new Date(year,month,1).getDay();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+
+  for(let i=0;i<firstDay;i++){
+    grid.innerHTML+="<div></div>";
+  }
+
+  for(let d=1;d<=daysInMonth;d++){
+    const dateObj=new Date(year,month,d);
+    const dayDiv=document.createElement("div");
+    dayDiv.className="day";
+    dayDiv.innerHTML=d;
+
+    if(dateObj.getDay()==0){dayDiv.classList.add("holiday");}
+
+    if(dateObj.getDay()==6 && Math.ceil(d/7)==3){
+      dayDiv.classList.add("holiday");
+    }
+
+    let key=dateObj.toDateString();
+    if(notes[key]){
+      let n=document.createElement("div");
+      n.className="note";
+      n.innerText=notes[key];
+      dayDiv.appendChild(n);
+    }
+
+    dayDiv.onclick=function(){
+      let note=prompt("Add a note:");
+      if(note){
+        notes[key]=note;
+        localStorage.setItem("notes",JSON.stringify(notes));
+        generateCalendar(month,year);
+      }
+    }
+
+    grid.appendChild(dayDiv);
+  }
+}
+
+function addMemory(){
+  const text=document.getElementById("memoryText").value;
+  const file=document.getElementById("memoryImage").files[0];
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+    memories.push({text:text,img:e.target.result});
+    localStorage.setItem("memories",JSON.stringify(memories));
+    renderMemories();
+  }
+
+  if(file){reader.readAsDataURL(file);}
+}
+
+function renderMemories(){
+  const track=document.getElementById("memoryTrack");
+  track.innerHTML="";
+  memories.forEach(m=>{
+    track.innerHTML+=`
+    <div class="polaroid">
+      <img src="${m.img}">
+      <div class="caption">${m.text}</div>
+    </div>`;
+  });
+}
+renderMemories();
+
+function launchConfetti(){
+  for(let i=0;i<100;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},70%,70%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+</script>
+
+</body>
+</html>
