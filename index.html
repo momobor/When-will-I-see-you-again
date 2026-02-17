@@ -511,22 +511,25 @@ window.setMode = v => {
 setInterval(tick,1000); tick();
 
 // ── REEL ──────────────────────────────────────────────────────────
-function addToReel(src, caption){
+let reelPhotos=[];
+function buildReel(){
   const track=document.getElementById('reel');
-  const card=document.createElement('div'); card.className='reel-card';
-  const img=document.createElement('img'); img.src=src;
-  const cap=document.createElement('div'); cap.className='cap'; cap.textContent=caption||'';
-  card.appendChild(img); card.appendChild(cap);
-  track.insertBefore(card,track.firstChild);
-  track.appendChild(card.cloneNode(true));
+  track.innerHTML='';
+  if(reelPhotos.length===0) return;
+  let pool=[...reelPhotos];
+  while(pool.length<12) pool=[...pool,...reelPhotos];
+  const makeCard=({src,caption})=>{
+    const card=document.createElement('div'); card.className='reel-card';
+    const img=document.createElement('img'); img.src=src; img.loading='lazy';
+    const cap=document.createElement('div'); cap.className='cap'; cap.textContent=caption||'';
+    card.appendChild(img); card.appendChild(cap); return card;
+  };
+  pool.forEach(p=>track.appendChild(makeCard(p)));
+  pool.forEach(p=>track.appendChild(makeCard(p)));
+  track.style.animation=`slide ${pool.length*4}s linear infinite`;
 }
-window.addEventListener('load',()=>{
-  const t=document.getElementById('reel');
-  [...t.children].forEach(el=>t.appendChild(el.cloneNode(true)));
-});
-function clearReelPhotos(){
-  document.getElementById('reel').querySelectorAll('.reel-card').forEach(el=>el.remove());
-}
+function refreshReel(photos){ reelPhotos=photos; buildReel(); }
+function clearReelPhotos(){ reelPhotos=[]; }
 
 // ── FILE STAGING ──────────────────────────────────────────────────
 let staged=[];
@@ -629,10 +632,15 @@ onSnapshot(q, snapshot=>{
   document.getElementById('memLoading').style.display='none';
   grid.innerHTML=''; bgIdx=0;
   clearReelPhotos();
+  const allReelPhotos=[];
+  snapshot.docs.forEach(docSnap=>{
+    const m=docSnap.data();
+    if(m.photos) m.photos.forEach(p=>allReelPhotos.push({src:p.url,caption:m.name+' · '+p.nm}));
+  });
+  refreshReel(allReelPhotos);
 
   snapshot.docs.forEach(docSnap=>{
     const m=docSnap.data(), id=docSnap.id;
-    if(m.photos) m.photos.forEach(p=>addToReel(p.url,m.name+' · '+p.nm));
 
     const card=document.createElement('div');
     card.className='mc';
