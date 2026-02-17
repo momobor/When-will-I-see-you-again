@@ -544,18 +544,34 @@ const dz=document.getElementById('dz');
 dz.addEventListener('dragover', e=>{e.preventDefault();dz.classList.add('over');});
 dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
 dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');handleFiles(e.dataTransfer.files);});
+function compressImage(file, maxW=1200, quality=0.82){
+  return new Promise(resolve=>{
+    const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{
+      URL.revokeObjectURL(url);
+      const scale=Math.min(1, maxW/Math.max(img.width,img.height));
+      const w=Math.round(img.width*scale), h=Math.round(img.height*scale);
+      const c=document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      c.toBlob(b=>resolve(new File([b], file.name, {type:'image/jpeg'})),'image/jpeg',quality);
+    };
+    img.src=url;
+  });
+}
+
 function handleFiles(files){
-  [...files].forEach(f=>{
-    const r=new FileReader();
-    r.onload=e=>{staged.push({url:e.target.result,nm:f.name.replace(/\.[^.]+$/,'')});renderPrev();};
-    r.readAsDataURL(f);
+  [...files].forEach(async f=>{
+    const compressed = await compressImage(f);
+    const previewUrl = URL.createObjectURL(compressed);
+    staged.push({file: compressed, previewUrl, nm: f.name.replace(/\.[^.]+$/,'')});
+    renderPrev();
   });
 }
 function renderPrev(){
   const w=document.getElementById('prevs'); w.innerHTML='';
   staged.forEach((f,i)=>{
     const tw=document.createElement('div'); tw.className='thumb';
-    const img=document.createElement('img'); img.src=f.url;
+    const img=document.createElement('img'); img.src=f.previewUrl;
     const btn=document.createElement('button'); btn.className='trm'; btn.textContent='✕';
     btn.addEventListener('click',()=>{staged.splice(i,1);renderPrev();});
     tw.appendChild(img); tw.appendChild(btn); w.appendChild(tw);
@@ -584,7 +600,7 @@ document.getElementById('postBtn').addEventListener('click', async ()=>{
   document.getElementById('mText').style.borderColor='var(--peach)';
   const btn=document.getElementById('postBtn');
   const lbl=document.getElementById('postingLbl');
-  btn.disabled=true; lbl.style.display='inline';
+  btn.disabled=true; lbl.style.display='inline'; lbl.textContent='Compressing…';
   try{
     await addDoc(MEM_COL,{
       uid:    currentUser.uid,
@@ -592,14 +608,26 @@ document.getElementById('postBtn').addEventListener('click', async ()=>{
       avatar: currentUser.photoURL || '',
       text,
       mood:   currentMood,
-      photos: staged.map(f=>({url:f.url,nm:f.nm})),
+      photos: await Promise.all(staged.map(f=> new Promise((resolve,reject)=>{
+  const r=new FileReader();
+  r.onload=e=>{
+    const base64=e.target.result;
+    if(base64.length > 700000){
+      reject(new Error(`"${f.nm}" is still too large. Try a smaller or cropped image.`));
+    } else {
+      resolve({url: base64, nm: f.nm});
+    }
+  };
+  r.onerror=reject;
+  r.readAsDataURL(f.file);
+}))),
       date:   new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}),
       ts:     serverTimestamp()
     });
     document.getElementById('mText').value='';
     staged=[]; renderPrev();
     confetti();
-  } catch(e){ alert('Could not post — check your internet connection.'); }
+  } catch(e){ alert(e.message || 'Could not post — check your internet connection.'); }
   btn.disabled=false; lbl.style.display='none';
 });
 
