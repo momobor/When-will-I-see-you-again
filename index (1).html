@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Last Chapter — 2026</title>
+<!-- Preconnect for speed -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* Fallback font stack in case Google Fonts is slow */
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Georgia'), local('Times New Roman');
+  font-display: swap;
+}
+
+:root {
+  --peach:  #F7C59F;
+  --coral:  #E07A5F;
+  --gold:   #F2CC8F;
+  --cream:  #FDFAF5;
+  --warm:   #FAF3E8;
+  --muted:  #C9A98A;
+  --dark:   #2E1A0E;
+  --mid:    #7A4F35;
+  --shadow: rgba(224,122,95,0.18);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 64px 24px 40px;
+  text-align: center;
+}
+.eyebrow {
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--coral); font-weight: 600; margin-bottom: 18px;
+  font-family: 'DM Sans', sans-serif;
+}
+.hero h1 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 700; color: var(--dark); line-height: 1.05; margin-bottom: 14px;
+}
+.hero h1 em { font-style: italic; color: var(--coral); }
+.hero-sub {
+  font-size: 15px; color: var(--mid); max-width: 360px;
+  margin: 0 auto 36px; line-height: 1.7; font-weight: 400;
+}
+
+/* ── TOGGLE ── */
+.toggle {
+  display: inline-flex; background: white;
+  border: 1.5px solid var(--peach); border-radius: 100px; padding: 4px; gap: 2px;
+}
+.tog {
+  padding: 9px 20px; border-radius: 100px; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .25s; color: var(--mid); background: transparent;
+}
+.tog.active { background: var(--coral); color: white; box-shadow: 0 2px 10px var(--shadow); }
+.target-lbl { font-size: 12px; color: var(--muted); margin-top: 10px; font-weight: 500; }
+
+/* ── COUNTDOWN ── */
+.countdown {
+  display: flex; justify-content: center; gap: 12px;
+  flex-wrap: wrap; padding: 40px 24px 8px;
+}
+.cu {
+  background: white; border: 1.5px solid var(--peach);
+  border-radius: 20px; padding: 24px 20px; text-align: center; min-width: 100px;
+  transition: transform .2s, box-shadow .2s;
+}
+.cu:hover { transform: translateY(-4px); box-shadow: 0 10px 28px var(--shadow); }
+.cn {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 3.2rem; font-weight: 700; color: var(--coral);
+  display: block; line-height: 1;
+}
+.cl {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1.8px; color: var(--muted); margin-top: 6px;
+}
+
+/* ── MILESTONE ── */
+.milestone { text-align: center; padding: 20px 24px 48px; }
+.ms {
+  display: inline-block; font-size: 14px; font-weight: 500;
+  color: var(--mid); background: var(--warm);
+  border: 1.5px solid var(--peach); border-radius: 100px; padding: 8px 22px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 32px; margin-bottom: 48px;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--peach);
+}
+.divider span {
+  font-size: 11px; color: var(--muted); white-space: nowrap;
+  font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+}
+
+/* ── REEL ── */
+.reel-hd { padding: 0 32px 16px; max-width: 900px; margin: 0 auto; }
+.reel-hd h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.4rem; color: var(--dark); font-weight: 600; margin-bottom: 4px;
+}
+.reel-hd p { font-size: 12px; color: var(--muted); }
+
+.reel-wrap { overflow: hidden; width: 100%; position: relative; margin-bottom: 8px; }
+.reel-wrap::before, .reel-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 72px; z-index: 2; pointer-events: none;
+}
+.reel-wrap::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+.reel-wrap::after  { right: 0; background: linear-gradient(to left,  var(--cream), transparent); }
+
+.reel-track {
+  display: flex; gap: 12px; padding: 8px 40px;
+  animation: slide 50s linear infinite; width: max-content;
+}
+.reel-track:hover { animation-play-state: paused; }
+@keyframes slide { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+.reel-card {
+  width: 175px; height: 175px; border-radius: 14px; flex-shrink: 0;
+  position: relative; overflow: hidden; border: 1.5px solid var(--peach);
+  transition: transform .3s, box-shadow .3s; cursor: pointer;
+}
+.reel-card:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.reel-card img { width:100%; height:100%; object-fit:cover; display:block; transition: transform .4s; }
+.reel-card:hover img { transform: scale(1.08); }
+.reel-card .cap {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(46,26,14,.65), transparent);
+  padding: 20px 10px 9px; font-size: 10px; font-weight: 600; color: white;
+  opacity: 0; transition: opacity .3s; line-height: 1.3;
+}
+.reel-card:hover .cap { opacity: 1; }
+.reel-ph {
+  width: 175px; height: 175px; border-radius: 14px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; border: 1.5px solid var(--peach); background: var(--warm);
+}
+
+/* ── MEMORY FORM ── */
+.mem-sec { max-width: 620px; margin: 0 auto; padding: 0 24px 64px; }
+.mem-sec h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.4rem; color: var(--dark); font-weight: 600; margin-bottom: 5px;
+}
+.mem-sec > p { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+
+.mem-form {
+  background: white; border: 1.5px solid var(--peach);
+  border-radius: 20px; padding: 22px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.mem-form input[type="text"],
+.mem-form textarea {
+  width: 100%; padding: 10px 13px;
+  border: 1.5px solid var(--peach); border-radius: 11px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400;
+  color: var(--dark); background: var(--cream); outline: none;
+  transition: border-color .2s;
+  appearance: none; -webkit-appearance: none;
+}
+.mem-form input[type="text"]:focus,
+.mem-form textarea:focus { border-color: var(--coral); }
+.mem-form textarea { min-height: 84px; resize: none; line-height: 1.6; }
+
+.drop {
+  border: 2px dashed var(--peach); border-radius: 12px;
+  padding: 18px; text-align: center; cursor: pointer;
+  transition: all .2s; background: var(--warm); position: relative;
+}
+.drop:hover, .drop.over { border-color: var(--coral); background: rgba(224,122,95,0.05); }
+.drop input[type="file"] {
+  position: absolute; inset: 0; opacity: 0;
+  cursor: pointer; width: 100%; height: 100%;
+}
+.drop-ico { font-size: 1.4rem; margin-bottom: 5px; }
+.drop-txt { font-size: 13px; color: var(--mid); font-weight: 500; }
+.drop-hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.previews { display: flex; flex-wrap: wrap; gap: 8px; }
+.thumb {
+  position: relative; width: 62px; height: 62px;
+  border-radius: 9px; overflow: hidden; border: 1.5px solid var(--peach);
+}
+.thumb img { width:100%; height:100%; object-fit:cover; }
+.trm {
+  position: absolute; top: 2px; right: 2px;
+  width: 17px; height: 17px; border-radius: 50%; border: none;
+  background: rgba(46,26,14,.6); color: white; font-size: 8px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+
+.mood-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.mood-lbl { font-size: 12px; font-weight: 600; color: var(--muted); }
+.mo {
+  font-size: 1.2rem; cursor: pointer; padding: 3px 7px;
+  border-radius: 7px; border: 1.5px solid transparent;
+  transition: all .15s; line-height: 1; user-select: none;
+}
+.mo:hover { background: var(--warm); border-color: var(--peach); }
+.mo.sel { background: var(--warm); border-color: var(--coral); transform: scale(1.15); }
+
+.form-foot { display: flex; justify-content: flex-end; }
+.post-btn {
+  background: var(--coral); color: white; border: none; border-radius: 100px;
+  padding: 10px 24px; font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: all .2s; box-shadow: 0 3px 12px var(--shadow);
+}
+.post-btn:hover { background: #c96a50; transform: translateY(-2px); }
+.post-btn:active { transform: translateY(0); }
+
+/* ── MEMORY CARDS ── */
+.mem-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 13px; margin-top: 26px;
+}
+.mc {
+  background: white; border: 1.5px solid var(--peach);
+  border-radius: 16px; padding: 16px;
+  animation: fu .35s ease backwards;
+}
+@keyframes fu { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.mc-img {
+  width: 100%; height: 130px; object-fit: cover;
+  border-radius: 10px; margin-bottom: 10px; display: block;
+}
+.mc-multi {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+  border-radius: 10px; overflow: hidden; margin-bottom: 10px; height: 110px;
+}
+.mc-multi img { width:100%; height:100%; object-fit:cover; display:block; }
+.mc-emoji { font-size: 1.3rem; margin-bottom: 7px; }
+.mc-name {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--muted); margin-bottom: 5px;
+}
+.mc-text { font-size: 13px; color: var(--dark); line-height: 1.6; }
+.mc-date { font-size: 10px; color: var(--muted); margin-top: 9px; }
+
+/* ── CALENDAR BUTTON ── */
+.cal-trig { text-align: center; padding: 0 24px 64px; }
+.cal-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1.5px solid var(--peach); border-radius: 100px; padding: 11px 26px;
+  background: white; font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600; color: var(--mid); cursor: pointer; transition: all .2s;
+}
+.cal-btn:hover {
+  background: var(--coral); color: white; border-color: var(--coral);
+  box-shadow: 0 4px 18px var(--shadow);
+}
+
+/* ── MODAL ── */
+.overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(46,26,14,.45); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--cream); border-radius: 22px;
+  width: 100%; max-width: 460px; max-height: 88vh; overflow-y: auto;
+  padding: 26px; box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+  transform: translateY(18px) scale(.97);
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.overlay.open .modal { transform: translateY(0) scale(1); }
+.modal-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+}
+.modal-top h3 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.25rem; color: var(--dark); font-weight: 600;
+}
+.xbtn {
+  width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--peach);
+  background: white; color: var(--mid); font-size: 13px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-weight: 600;
+  transition: all .2s; line-height: 1;
+}
+.xbtn:hover { background: var(--coral); color: white; border-color: var(--coral); }
+
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+}
+.nbtn {
+  width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--peach);
+  background: white; color: var(--mid); font-size: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all .2s;
+  line-height: 1;
+}
+.nbtn:hover { background: var(--coral); color: white; border-color: var(--coral); }
+.cal-ttl {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.05rem; font-weight: 600; color: var(--dark);
+}
+
+.cgrid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.dow {
+  text-align: center; font-size: 9px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--muted); padding: 4px 0 7px;
+}
+.day {
+  aspect-ratio: 1; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500; color: var(--dark);
+  transition: all .15s; position: relative;
+}
+.day.ptr { cursor: pointer; }
+.day.ptr:hover { background: var(--peach); }
+.day.empty { pointer-events: none; }
+.day.today { background: var(--coral); color: white; font-weight: 700; }
+.day.wknd { background: rgba(247,197,159,.28); color: var(--mid); }
+.day.hol  { background: rgba(242,204,143,.55); font-weight: 600; }
+.day.lb   { background: rgba(168,230,207,.5); }
+.day.lb.hol { background: rgba(168,230,207,.7); font-weight: 600; }
+.day.exam { background: rgba(255,179,198,.45); }
+.day.lastday { background: var(--coral); color: white; font-weight: 700; }
+.day .pip {
+  position: absolute; bottom: 2px; width: 4px; height: 4px;
+  border-radius: 50%; background: var(--coral);
+}
+.day.today .pip, .day.lastday .pip { background: white; }
+
+.legend { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px 14px; }
+.leg { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--mid); }
+.lsw { width: 13px; height: 13px; border-radius: 4px; flex-shrink: 0; }
+
+/* ── TOOLTIP ── */
+.tip {
+  position: fixed; z-index: 300; pointer-events: none;
+  background: var(--dark); color: white; padding: 6px 11px;
+  border-radius: 9px; font-size: 11px; font-weight: 500; line-height: 1.5;
+  max-width: 200px; white-space: pre-wrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+  opacity: 0; transition: opacity .15s;
+}
+.tip.show { opacity: 1; }
+
+/* ── CONFETTI ── */
+.cf {
+  position: fixed; top: -12px; z-index: 9999; pointer-events: none;
+  border-radius: 3px; animation: cff linear forwards;
+}
+@keyframes cff {
+  0%   { transform: translateY(0)     rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(105vh) rotate(540deg); opacity: 0; }
+}
+
+/* ── DELETE BUTTON ON CARD ── */
+.mc { position: relative; }
+.mc-del {
+  position: absolute; top: 10px; right: 10px;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1.5px solid var(--peach); background: white;
+  color: var(--muted); font-size: 11px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: all .2s; font-weight: 600;
+}
+.mc:hover .mc-del { opacity: 1; }
+.mc-del:hover { background: #fee; border-color: #e07a5f88; color: var(--coral); }
+
+/* ── CONFIRM MODAL ── */
+.confirm-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(46,26,14,.5); backdrop-filter: blur(5px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.confirm-overlay.open { opacity: 1; pointer-events: all; }
+.confirm-box {
+  background: var(--cream); border-radius: 20px;
+  padding: 28px; max-width: 340px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  transform: scale(.95); transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+  text-align: center;
+}
+.confirm-overlay.open .confirm-box { transform: scale(1); }
+.confirm-icon { font-size: 2rem; margin-bottom: 12px; }
+.confirm-title {
+  font-family: 'Lora', Georgia, serif; font-size: 1.1rem;
+  font-weight: 600; color: var(--dark); margin-bottom: 8px;
+}
+.confirm-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+.confirm-btns { display: flex; gap: 10px; justify-content: center; }
+.cbtn {
+  padding: 9px 22px; border-radius: 100px; border: 1.5px solid var(--peach);
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.cbtn.cancel { background: white; color: var(--mid); }
+.cbtn.cancel:hover { background: var(--warm); }
+.cbtn.danger { background: var(--coral); color: white; border-color: var(--coral); }
+.cbtn.danger:hover { background: #c96a50; }
+
+/* ── MIXTAPE ── */
+.mix-section { max-width: 620px; margin: 0 auto; padding: 0 24px 64px; }
+.mix-section h2 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.4rem; color: var(--dark); font-weight: 600; margin-bottom: 5px;
+}
+.mix-section > p { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+
+.mixtape {
+  background: white; border: 1.5px solid var(--peach);
+  border-radius: 20px; padding: 22px;
+}
+.now-playing {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+}
+.track-art {
+  width: 60px; height: 60px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--peach), var(--coral));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  transition: transform .3s ease;
+}
+.track-art.spinning {
+  animation: spin 4s linear infinite;
+}
+@keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+.track-info { flex: 1; min-width: 0; }
+.track-title {
+  font-family: 'Lora', Georgia, serif; font-size: 1rem;
+  font-weight: 600; color: var(--dark); margin-bottom: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.track-artist { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+/* progress bar */
+.progress-wrap {
+  margin-bottom: 6px; cursor: pointer;
+  height: 4px; background: var(--peach); border-radius: 100px; position: relative;
+}
+.progress-fill {
+  height: 100%; background: var(--coral); border-radius: 100px;
+  width: 0%; transition: width .5s linear; pointer-events: none;
+}
+.progress-wrap:hover .progress-fill { background: var(--deep-coral, #c96a50); }
+.time-row {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--muted); margin-bottom: 16px;
+}
+
+/* controls */
+.controls {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+}
+.ctrl-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--peach);
+  background: white; color: var(--mid); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; flex-shrink: 0;
+}
+.ctrl-btn:hover { background: var(--peach); }
+.ctrl-btn.play-btn {
+  width: 46px; height: 46px; font-size: 18px;
+  background: var(--coral); color: white; border-color: var(--coral);
+  box-shadow: 0 3px 12px var(--shadow);
+}
+.ctrl-btn.play-btn:hover { background: #c96a50; transform: scale(1.06); }
+
+/* track list */
+.track-list { margin-top: 20px; display: flex; flex-direction: column; gap: 2px; }
+.track-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 10px; border-radius: 10px; cursor: pointer;
+  transition: background .15s;
+}
+.track-row:hover { background: var(--warm); }
+.track-row.active { background: rgba(224,122,95,.1); }
+.track-num { font-size: 11px; color: var(--muted); width: 16px; text-align: center; flex-shrink: 0; }
+.track-row.active .track-num { color: var(--coral); font-weight: 700; }
+.track-row-info { flex: 1; min-width: 0; }
+.track-row-title { font-size: 13px; font-weight: 600; color: var(--dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track-row.active .track-row-title { color: var(--coral); }
+.track-row-artist { font-size: 11px; color: var(--muted); }
+.track-row-dur { font-size: 11px; color: var(--muted); flex-shrink: 0; }
+
+/* add song form */
+.add-song-toggle {
+  margin-top: 16px; width: 100%; padding: 9px;
+  border: 1.5px dashed var(--peach); border-radius: 10px;
+  background: transparent; font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer;
+  transition: all .2s;
+}
+.add-song-toggle:hover { border-color: var(--coral); color: var(--coral); background: rgba(224,122,95,.04); }
+.add-song-form {
+  margin-top: 12px; display: none; flex-direction: column; gap: 9px;
+}
+.add-song-form.open { display: flex; }
+.add-song-form input {
+  padding: 9px 13px; border: 1.5px solid var(--peach); border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--dark);
+  background: var(--cream); outline: none; transition: border-color .2s;
+}
+.add-song-form input:focus { border-color: var(--coral); }
+.add-song-form input[type=file] { padding: 7px 13px; cursor: pointer; }
+.add-song-row { display: flex; gap: 8px; }
+.add-song-btn {
+  padding: 9px 18px; border-radius: 100px; border: none;
+  background: var(--coral); color: white; font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s;
+  white-space: nowrap;
+}
+.add-song-btn:hover { background: #c96a50; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 22px;
+  font-size: 12px; color: var(--muted);
+  border-top: 1px solid var(--peach);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .cu { min-width: 76px; padding: 16px 10px; }
+  .cn { font-size: 2.4rem; }
+  .reel-card, .reel-ph { width: 148px; height: 148px; }
+  .hero h1 { font-size: 2.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Class of 2026 &nbsp;·&nbsp; Final Semester</div>
+  <h1>The <em>Last</em><br>Chapter</h1>
+  <p class="hero-sub">Every class, every laugh, every late night — make them count.</p>
+  <div class="toggle">
+    <button class="tog active" id="togC" onclick="setMode('college')">Last College Day</button>
+    <button class="tog"        id="togE" onclick="setMode('exams')">Last Exam Day</button>
+  </div>
+  <div class="target-lbl" id="tLbl">May 9, 2026 — last instruction day</div>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+  <div class="cu"><span class="cn" id="cd">--</span><div class="cl">Days</div></div>
+  <div class="cu"><span class="cn" id="ch">--</span><div class="cl">Hours</div></div>
+  <div class="cu"><span class="cn" id="cm">--</span><div class="cl">Mins</div></div>
+  <div class="cu"><span class="cn" id="cs">--</span><div class="cl">Secs</div></div>
+</div>
+<div class="milestone"><span class="ms" id="ms">…</span></div>
+
+<div class="divider"><span>memories</span></div>
+
+<!-- REEL -->
+<div class="reel-hd">
+  <h2>Memory Reel</h2>
+  <p>Hover to pause · Photos added below appear here automatically</p>
+</div>
+<div class="reel-wrap">
+  <div class="reel-track" id="reel">
+    <div class="reel-ph">🌅</div>
+    <div class="reel-ph">📚</div>
+    <div class="reel-ph">☕</div>
+    <div class="reel-ph">🎭</div>
+    <div class="reel-ph">🌙</div>
+    <div class="reel-ph">🏆</div>
+    <div class="reel-ph">🌸</div>
+    <div class="reel-ph">✨</div>
+  </div>
+</div>
+
+<div class="divider" style="margin-top:40px;"><span>add yours</span></div>
+
+<!-- MEMORY FORM -->
+<div class="mem-sec">
+  <h2>Leave a Memory</h2>
+  <p>Write something, add a photo — it goes into the reel and the wall below.</p>
+  <div class="mem-form">
+    <input type="text" id="mName" placeholder="Your name" maxlength="40" autocomplete="off">
+    <textarea id="mText" placeholder="Write a memory, a feeling, anything…" maxlength="400"></textarea>
+    <div class="drop" id="dz">
+      <input type="file" id="fInput" accept="image/*" multiple>
+      <div class="drop-ico">🖼️</div>
+      <div class="drop-txt">Attach photos</div>
+      <div class="drop-hint">Click to browse · optional</div>
+    </div>
+    <div class="previews" id="prevs"></div>
+    <div class="mood-row">
+      <span class="mood-lbl">Mood</span>
+      <span class="mo sel" data-e="🌅">🌅</span>
+      <span class="mo" data-e="💛">💛</span>
+      <span class="mo" data-e="😭">😭</span>
+      <span class="mo" data-e="🥹">🥹</span>
+      <span class="mo" data-e="🎉">🎉</span>
+      <span class="mo" data-e="🫂">🫂</span>
+      <span class="mo" data-e="🔥">🔥</span>
+    </div>
+    <div class="form-foot">
+      <button class="post-btn" id="postBtn">Post Memory</button>
+    </div>
+  </div>
+  <div class="mem-grid" id="grid"></div>
+</div>
+
+<div class="divider"><span>mixtape</span></div>
+
+<!-- MIXTAPE -->
+<div class="mix-section">
+  <h2>Our Mixtape 🎵</h2>
+  <p>The songs that soundtrack these last days. Add your own below.</p>
+  <div class="mixtape">
+    <!-- now playing -->
+    <div class="now-playing">
+      <div class="track-art" id="tArt">🎵</div>
+      <div class="track-info">
+        <div class="track-title" id="tTitle">Select a track</div>
+        <div class="track-artist" id="tArtist">—</div>
+      </div>
+    </div>
+    <div class="progress-wrap" id="progWrap">
+      <div class="progress-fill" id="progFill"></div>
+    </div>
+    <div class="time-row">
+      <span id="tCur">0:00</span>
+      <span id="tDur">0:00</span>
+    </div>
+    <div class="controls">
+      <button class="ctrl-btn" id="btnPrev" title="Previous">&#9664;&#9664;</button>
+      <button class="ctrl-btn play-btn" id="btnPlay" title="Play / Pause">&#9654;</button>
+      <button class="ctrl-btn" id="btnNext" title="Next">&#9654;&#9654;</button>
+    </div>
+    <!-- track list -->
+    <div class="track-list" id="trackList"></div>
+    <!-- add song -->
+    <button class="add-song-toggle" id="addToggle">+ Add a song</button>
+    <p style="font-size:11px;color:var(--muted);margin-top:7px;line-height:1.5;">Songs you add here are saved only on <em>your</em> device — others won't hear them. Upload mp3s to the GitHub repo to share with everyone.</p>
+    <div class="add-song-form" id="addForm">
+      <input type="text" id="songTitle"  placeholder="Song title" maxlength="80">
+      <input type="text" id="songArtist" placeholder="Artist" maxlength="60">
+      <input type="file" id="songFile"   accept="audio/*">
+      <div class="add-song-row">
+        <button class="add-song-btn" id="addSongBtn">Add to mixtape</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><span>plan</span></div>
+
+<!-- CALENDAR BUTTON -->
+<div class="cal-trig">
+  <button class="cal-btn" onclick="openCal()"><span>📅</span> Holiday Calendar</button>
+  <p style="font-size:12px;color:var(--muted);margin-top:9px;">Holidays, long weekends &amp; exam dates</p>
+</div>
+
+<footer>Class of 2026 · Your story isn't ending — it's graduating.</footer>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="confirm-overlay" id="confirmOv">
+  <div class="confirm-box">
+    <div class="confirm-icon">🗑️</div>
+    <div class="confirm-title">Delete this memory?</div>
+    <div class="confirm-sub">This can't be undone. Are you sure you want to remove it?</div>
+    <div class="confirm-btns">
+      <button class="cbtn cancel" id="confirmCancel">Keep it</button>
+      <button class="cbtn danger" id="confirmDelete">Yes, delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDAR MODAL -->
+<div class="overlay" id="ov">
+  <div class="modal" id="modalBox">
+    <div class="modal-top">
+      <h3>📅 Holiday Calendar</h3>
+      <button class="xbtn" onclick="closeCal()">✕</button>
+    </div>
+    <div class="cal-nav">
+      <button class="nbtn" onclick="navCal(-1)">◀</button>
+      <div class="cal-ttl" id="calTtl"></div>
+      <button class="nbtn" onclick="navCal(1)">▶</button>
+    </div>
+    <div class="cgrid" id="cgrid"></div>
+    <div class="legend">
+      <div class="leg"><div class="lsw" style="background:rgba(242,204,143,.75)"></div>Holiday</div>
+      <div class="leg"><div class="lsw" style="background:rgba(168,230,207,.75)"></div>Long weekend 🎉</div>
+      <div class="leg"><div class="lsw" style="background:rgba(255,179,198,.7)"></div>Exam period</div>
+      <div class="leg"><div class="lsw" style="background:rgba(247,197,159,.4)"></div>Weekend</div>
+      <div class="leg"><div class="lsw" style="background:var(--coral)"></div>Last day / Today</div>
+    </div>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+'use strict';
+
+// ─── HOLIDAY DATA ───────────────────────────────────────────────────
+const HOL = {
+  '2026-01-15':'Uttarayana Punyakala, Makara Sankranti',
+  '2026-01-16':'Special holiday',
+  '2026-01-24':'Saturday off',
+  '2026-01-26':'Republic Day',
+  '2026-02-21':'Saturday off',
+  '2026-03-19':'Chandramana Ugadi',
+  '2026-03-20':'Special holiday',
+  '2026-03-21':'Khutub-E-Ramzan',
+  '2026-03-31':'Mahaveera Jayanthi',
+  '2026-04-03':'Good Friday',
+  '2026-04-04':'Saturday off',
+  '2026-04-14':'Dr. B.R. Ambedkar Jayanthi',
+  '2026-04-20':'Basava Jayanthi, Akshaya Tritiya',
+  '2026-05-01':'Labour Day / May Day',
+  '2026-05-02':'Saturday off',
+  '2026-05-28':'Bakrid',
+  '2026-06-26':'Day of Muharram (Ashura)',
+  '2026-06-27':'Saturday off',
+  '2026-07-18':'Saturday off',
+  '2026-08-15':'Independence Day',
+  '2026-08-21':'Varamahalakshmi Vrata (restricted)',
+  '2026-08-22':'Saturday off / Special holiday',
+  '2026-08-26':'Eid-Milad',
+  '2026-09-14':'Swarnagowri Vratam / Varasiddhi Vinayaka Vrata',
+  '2026-09-19':'Saturday off',
+  '2026-10-02':'Gandhi Jayanthi',
+  '2026-10-10':'Mahalaya Amavasye',
+  '2026-10-19':'Special holiday',
+  '2026-10-20':'Maha Navami, Ayudhapooja',
+  '2026-10-21':'Vijayadashami',
+  '2026-11-09':'Special holiday',
+  '2026-11-10':'Balipadyami, Deepavali',
+  '2026-11-27':'Kanakadasa Jayanthi',
+  '2026-12-19':'Saturday off',
+  '2026-12-25':'Christmas'
+};
+const AC = {
+  '2026-05-09':'Last instruction day 🎓',
+  '2026-05-14':'Examinations begin',
+  '2026-05-22':'Examinations begin (2nd sem)',
+  '2026-05-30':'Last exam day',
+  '2026-06-05':'Last exam day (2nd sem)'
+};
+
+// ─── COUNTDOWN ──────────────────────────────────────────────────────
+const T_COLLEGE = new Date('2026-05-09T23:59:59');
+const T_EXAMS   = new Date('2026-05-30T23:59:59');
+let currentMode = 'college';
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function getMilestone(days) {
+  if (days <= 0)  return 'The chapter is complete.';
+  if (days === 1) return 'Tomorrow is the last day.';
+  if (days <= 7)  return days + ' days left — make every one count.';
+  if (days <= 30) return days + ' days — one last beautiful month.';
+  if (days <= 60) return days + ' days — still so much to feel.';
+  return days + ' days remaining.';
+}
+
+function tick() {
+  var target = currentMode === 'college' ? T_COLLEGE : T_EXAMS;
+  var diff = Math.max(0, target - new Date());
+  var dv = Math.floor(diff / 864e5);
+  var hv = Math.floor(diff % 864e5 / 36e5);
+  var mv = Math.floor(diff % 36e5 / 6e4);
+  var sv = Math.floor(diff % 6e4 / 1e3);
+  document.getElementById('cd').textContent = pad(dv);
+  document.getElementById('ch').textContent = pad(hv);
+  document.getElementById('cm').textContent = pad(mv);
+  document.getElementById('cs').textContent = pad(sv);
+  document.getElementById('ms').textContent = getMilestone(dv);
+}
+
+function setMode(v) {
+  currentMode = v;
+  document.getElementById('togC').classList.toggle('active', v === 'college');
+  document.getElementById('togE').classList.toggle('active', v === 'exams');
+  document.getElementById('tLbl').textContent = v === 'college'
+    ? 'May 9, 2026 — last instruction day'
+    : 'May 30, 2026 — last exam day';
+  tick();
+}
+
+setInterval(tick, 1000);
+tick();
+
+// ─── REEL ───────────────────────────────────────────────────────────
+function addToReel(src, caption) {
+  var track = document.getElementById('reel');
+  var card = document.createElement('div');
+  card.className = 'reel-card';
+  var img = document.createElement('img');
+  img.src = src;
+  var cap = document.createElement('div');
+  cap.className = 'cap';
+  cap.textContent = caption || '';
+  card.appendChild(img);
+  card.appendChild(cap);
+  track.insertBefore(card, track.firstChild);
+  // clone for seamless loop
+  var clone = card.cloneNode(true);
+  track.appendChild(clone);
+}
+
+// Duplicate initial placeholders for infinite scroll
+window.addEventListener('load', function() {
+  var track = document.getElementById('reel');
+  var items = Array.from(track.children);
+  items.forEach(function(el) { track.appendChild(el.cloneNode(true)); });
+
+  // Restore photos from stored memories
+  loadMemories().forEach(function(m) {
+    if (m.photos) m.photos.forEach(function(p) { addToReel(p.url, m.name + ' · ' + p.nm); });
+  });
+  renderMems();
+});
+
+// ─── FILE HANDLING ───────────────────────────────────────────────────
+var staged = [];
+
+document.getElementById('fInput').addEventListener('change', function() {
+  handleFiles(this.files);
+  this.value = '';
+});
+
+var dz = document.getElementById('dz');
+dz.addEventListener('dragover',  function(e) { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', function()  { dz.classList.remove('over'); });
+dz.addEventListener('drop', function(e) {
+  e.preventDefault(); dz.classList.remove('over');
+  handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+  Array.from(files).forEach(function(f) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      staged.push({ url: e.target.result, nm: f.name.replace(/\.[^.]+$/, '') });
+      renderPrev();
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+function renderPrev() {
+  var wrap = document.getElementById('prevs');
+  wrap.innerHTML = '';
+  staged.forEach(function(f, i) {
+    var tw  = document.createElement('div');  tw.className  = 'thumb';
+    var img = document.createElement('img');  img.src = f.url;
+    var btn = document.createElement('button'); btn.className = 'trm'; btn.textContent = '✕';
+    btn.addEventListener('click', function() { staged.splice(i, 1); renderPrev(); });
+    tw.appendChild(img); tw.appendChild(btn); wrap.appendChild(tw);
+  });
+}
+
+// ─── STORAGE ─────────────────────────────────────────────────────────
+var STORAGE_KEY = 'lc_v3';
+
+function loadMemories() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveMemories(arr) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+  catch(e) { /* quota exceeded — photos are large, graceful fail */ }
+}
+
+// ─── MOOD ────────────────────────────────────────────────────────────
+var currentMood = '🌅';
+
+document.querySelectorAll('.mo').forEach(function(el) {
+  el.addEventListener('click', function() {
+    document.querySelectorAll('.mo').forEach(function(e) { e.classList.remove('sel'); });
+    el.classList.add('sel');
+    currentMood = el.dataset.e;
+  });
+});
+
+// ─── POST ────────────────────────────────────────────────────────────
+var CARD_BG = ['#FFF8F0','#FFFDF0','#FFF0F4','#F0FFF8','#F0F4FF','#FFF0FA'];
+var bgIdx = 0;
+
+document.getElementById('postBtn').addEventListener('click', post);
+
+function post() {
+  var name = document.getElementById('mName').value.trim();
+  var text = document.getElementById('mText').value.trim();
+  var mText = document.getElementById('mText');
+
+  if (!text && staged.length === 0) {
+    mText.style.borderColor = 'var(--coral)';
+    mText.focus();
+    return;
+  }
+  mText.style.borderColor = 'var(--peach)';
+
+  var mem = {
+    name:   name || 'Someone',
+    text:   text,
+    mood:   currentMood,
+    photos: staged.map(function(f) { return { url: f.url, nm: f.nm }; }),
+    date:   new Date().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+  };
+
+  var mems = loadMemories();
+  mems.unshift(mem);
+  saveMemories(mems);
+
+  // Push photos to reel
+  mem.photos.forEach(function(p) { addToReel(p.url, mem.name + ' · ' + p.nm); });
+
+  // Clear form
+  document.getElementById('mName').value = '';
+  document.getElementById('mText').value = '';
+  staged = [];
+  renderPrev();
+
+  renderMems();
+  confetti();
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderMems() {
+  var mems = loadMemories();
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  bgIdx = 0;
+  mems.forEach(function(m, idx) {
+    var card = document.createElement('div');
+    card.className = 'mc';
+    card.style.background = CARD_BG[bgIdx++ % CARD_BG.length];
+    var html = '';
+    if (m.photos && m.photos.length === 1) {
+      html += '<img class="mc-img" src="' + m.photos[0].url + '" alt="">';
+    } else if (m.photos && m.photos.length > 1) {
+      html += '<div class="mc-multi">' +
+        m.photos.slice(0,4).map(function(p) { return '<img src="' + p.url + '" alt="">'; }).join('') +
+        '</div>';
+    }
+    html += '<div class="mc-emoji">' + m.mood + '</div>';
+    html += '<div class="mc-name">'  + esc(m.name) + '</div>';
+    if (m.text) html += '<div class="mc-text">' + esc(m.text) + '</div>';
+    html += '<div class="mc-date">' + m.date + '</div>';
+    card.innerHTML = html;
+    // delete button
+    var delBtn = document.createElement('button');
+    delBtn.className = 'mc-del';
+    delBtn.title = 'Delete memory';
+    delBtn.textContent = '✕';
+    delBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openConfirm(idx);
+    });
+    card.appendChild(delBtn);
+    grid.appendChild(card);
+  });
+}
+
+// ─── CONFIRM DELETE ──────────────────────────────────────────────────
+var pendingDeleteIdx = -1;
+
+function openConfirm(idx) {
+  pendingDeleteIdx = idx;
+  document.getElementById('confirmOv').classList.add('open');
+}
+function closeConfirm() {
+  pendingDeleteIdx = -1;
+  document.getElementById('confirmOv').classList.remove('open');
+}
+
+document.getElementById('confirmCancel').addEventListener('click', closeConfirm);
+document.getElementById('confirmOv').addEventListener('click', function(e) {
+  if (e.target === this) closeConfirm();
+});
+document.getElementById('confirmDelete').addEventListener('click', function() {
+  if (pendingDeleteIdx < 0) return;
+  var mems = loadMemories();
+  mems.splice(pendingDeleteIdx, 1);
+  saveMemories(mems);
+  closeConfirm();
+  renderMems();
+  // rebuild reel from scratch
+  rebuildReel();
+});
+
+// ─── REEL REBUILD (after delete) ────────────────────────────────────
+function rebuildReel() {
+  var track = document.getElementById('reel');
+  // remove all real-photo cards (keep placeholders)
+  Array.from(track.querySelectorAll('.reel-card')).forEach(function(el) { el.remove(); });
+  // re-add from storage
+  loadMemories().forEach(function(m) {
+    if (m.photos) m.photos.forEach(function(p) { addToReel(p.url, m.name + ' · ' + p.nm); });
+  });
+}
+
+// ─── MIXTAPE ─────────────────────────────────────────────────────────
+var TAPE_KEY = 'lc_tape_local';
+var tapeAudio = new Audio();
+var tapeIdx   = 0;
+var tapePlaying = false;
+
+// Hosted on GitHub — plays for everyone
+var BASE_TRACKS = [
+  { title: 'See You Again', artist: 'Wiz Khalifa ft. Charlie Puth', url: 'See%20You%20Again%20ft.%20Charlie%20Puth.mp3', dur: '3:50', base: true },
+  { title: 'The Final Countdown', artist: 'Europe', url: 'The%20Final%20Countdown.mp3', dur: '5:09', base: true },
+];
+
+function loadLocalTape() {
+  try { return JSON.parse(localStorage.getItem(TAPE_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+function saveLocalTape(arr) {
+  try { localStorage.setItem(TAPE_KEY, JSON.stringify(arr)); }
+  catch(e) {}
+}
+// Full tape = shared base + locally added songs
+function loadTape() {
+  return BASE_TRACKS.concat(loadLocalTape());
+}
+
+var EMOJIS = ['🎵','🎶','🌅','💛','🌙','☕','🎭','✨','🔥','🌸'];
+
+function renderTrackList() {
+  var tape = loadTape();
+  var list = document.getElementById('trackList');
+  list.innerHTML = '';
+  if (tape.length === 0) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted);padding:10px 0;text-align:center;">No songs yet.</p>';
+    return;
+  }
+  tape.forEach(function(t, i) {
+    var row = document.createElement('div');
+    row.className = 'track-row' + (i === tapeIdx ? ' active' : '');
+    var badge = t.base
+      ? '<span style="font-size:9px;background:rgba(224,122,95,.12);color:var(--coral);padding:2px 6px;border-radius:100px;font-weight:600;margin-left:6px;flex-shrink:0;">shared</span>'
+      : '<span style="font-size:9px;background:rgba(168,230,207,.3);color:#4a9b6f;padding:2px 6px;border-radius:100px;font-weight:600;margin-left:6px;flex-shrink:0;">your device</span>';
+    row.innerHTML =
+      '<div class="track-num">' + (i === tapeIdx ? '♪' : (i+1)) + '</div>' +
+      '<div class="track-row-info" style="display:flex;align-items:center;min-width:0;">' +
+        '<div style="min-width:0;">' +
+          '<div class="track-row-title">' + esc(t.title) + '</div>' +
+          '<div class="track-row-artist">' + esc(t.artist) + '</div>' +
+        '</div>' +
+        badge +
+      '</div>' +
+      '<div class="track-row-dur">' + (t.dur || '') + '</div>';
+    row.addEventListener('click', function() { loadTrack(i, true); });
+    list.appendChild(row);
+  });
+}
+
+function loadTrack(i, autoplay) {
+  var tape = loadTape();
+  if (!tape.length) return;
+  tapeIdx = ((i % tape.length) + tape.length) % tape.length;
+  var t = tape[tapeIdx];
+  document.getElementById('tTitle').textContent  = t.title;
+  document.getElementById('tArtist').textContent = t.artist || '—';
+  document.getElementById('tArt').textContent    = EMOJIS[tapeIdx % EMOJIS.length];
+  tapeAudio.src = t.url;
+  tapeAudio.load();
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('tCur').textContent = '0:00';
+  document.getElementById('tDur').textContent = '0:00';
+  renderTrackList();
+  if (autoplay) { tapeAudio.play(); setPlaying(true); }
+}
+
+function setPlaying(state) {
+  tapePlaying = state;
+  document.getElementById('btnPlay').innerHTML = state ? '&#9646;&#9646;' : '&#9654;';
+  var art = document.getElementById('tArt');
+  if (state) art.classList.add('spinning'); else art.classList.remove('spinning');
+}
+
+document.getElementById('btnPlay').addEventListener('click', function() {
+  var tape = loadTape();
+  if (!tape.length) return;
+  if (!tapeAudio.src || tapeAudio.src === window.location.href) { loadTrack(0, true); return; }
+  if (tapePlaying) { tapeAudio.pause(); setPlaying(false); }
+  else             { tapeAudio.play();  setPlaying(true);  }
+});
+
+document.getElementById('btnPrev').addEventListener('click', function() {
+  loadTrack(tapeIdx - 1, tapePlaying);
+});
+document.getElementById('btnNext').addEventListener('click', function() {
+  loadTrack(tapeIdx + 1, tapePlaying);
+});
+
+// progress
+tapeAudio.addEventListener('timeupdate', function() {
+  if (!tapeAudio.duration) return;
+  var pct = (tapeAudio.currentTime / tapeAudio.duration) * 100;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('tCur').textContent = fmtTime(tapeAudio.currentTime);
+  document.getElementById('tDur').textContent = fmtTime(tapeAudio.duration);
+});
+tapeAudio.addEventListener('ended', function() {
+  loadTrack(tapeIdx + 1, true);
+});
+tapeAudio.addEventListener('pause', function() { setPlaying(false); });
+tapeAudio.addEventListener('play',  function() { setPlaying(true);  });
+
+document.getElementById('progWrap').addEventListener('click', function(e) {
+  if (!tapeAudio.duration) return;
+  var rect = this.getBoundingClientRect();
+  tapeAudio.currentTime = ((e.clientX - rect.left) / rect.width) * tapeAudio.duration;
+});
+
+function fmtTime(s) {
+  if (isNaN(s)) return '0:00';
+  var m = Math.floor(s / 60);
+  var sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+// add song
+document.getElementById('addToggle').addEventListener('click', function() {
+  var form = document.getElementById('addForm');
+  form.classList.toggle('open');
+  this.textContent = form.classList.contains('open') ? '− Cancel' : '+ Add a song';
+});
+
+document.getElementById('addSongBtn').addEventListener('click', function() {
+  var title  = document.getElementById('songTitle').value.trim();
+  var artist = document.getElementById('songArtist').value.trim();
+  var file   = document.getElementById('songFile').files[0];
+  if (!title || !file) {
+    if (!title) document.getElementById('songTitle').style.borderColor = 'var(--coral)';
+    if (!file)  document.getElementById('songFile').style.borderColor  = 'var(--coral)';
+    return;
+  }
+  document.getElementById('songTitle').style.borderColor  = 'var(--peach)';
+  document.getElementById('songFile').style.borderColor   = 'var(--peach)';
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var tmp = new Audio();
+    tmp.src = e.target.result;
+    tmp.addEventListener('loadedmetadata', function() {
+      var local = loadLocalTape();
+      local.push({ title: title, artist: artist || 'Unknown', url: e.target.result, dur: fmtTime(tmp.duration), base: false });
+      saveLocalTape(local);
+      document.getElementById('songTitle').value  = '';
+      document.getElementById('songArtist').value = '';
+      document.getElementById('songFile').value   = '';
+      document.getElementById('addForm').classList.remove('open');
+      document.getElementById('addToggle').textContent = '+ Add a song';
+      renderTrackList();
+    });
+  };
+  reader.readAsDataURL(file);
+});
+
+// init tape
+renderTrackList();
+
+// ─── CONFETTI ────────────────────────────────────────────────────────
+function confetti() {
+  var cols = ['#E07A5F','#F2CC8F','#F7C59F','#FFB3C6','#A8E6CF'];
+  for (var i = 0; i < 35; i++) {
+    (function() {
+      var el = document.createElement('div');
+      el.className = 'cf';
+      var dur  = (1.3 + Math.random() * 1.6).toFixed(2);
+      var del  = (Math.random() * 0.35).toFixed(2);
+      var col  = cols[Math.floor(Math.random() * cols.length)];
+      var w    = (5 + Math.random() * 6).toFixed(0);
+      var h    = (7 + Math.random() * 9).toFixed(0);
+      var rot  = Math.floor(Math.random() * 360);
+      var rad  = Math.random() > .5 ? '50%' : '3px';
+      el.style.cssText = 'left:' + (Math.random()*100).toFixed(1) + 'vw;' +
+        'width:' + w + 'px;height:' + h + 'px;background:' + col + ';' +
+        'animation-duration:' + dur + 's;animation-delay:' + del + 's;' +
+        'transform:rotate(' + rot + 'deg);border-radius:' + rad + ';';
+      document.body.appendChild(el);
+      setTimeout(function() { el.remove(); }, 3000);
+    })();
+  }
+}
+
+// ─── CALENDAR ────────────────────────────────────────────────────────
+var cy = 2026, cm = 0;
+var MONTHS = ['January','February','March','April','May','June',
+              'July','August','September','October','November','December'];
+
+function dk(y, mo, d) {
+  return y + '-' + String(mo+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+}
+
+function isLongBreak(y, mo, d) {
+  var count = 0;
+  for (var o = -2; o <= 2; o++) {
+    var nd  = new Date(y, mo, d + o);
+    var k   = dk(nd.getFullYear(), nd.getMonth(), nd.getDate());
+    var dow = nd.getDay();
+    if (dow === 0 || dow === 6 || HOL[k]) count++;
+  }
+  return count >= 3;
+}
+
+function renderCal() {
+  document.getElementById('calTtl').textContent = MONTHS[cm] + ' ' + cy;
+  var grid  = document.getElementById('cgrid');
+  grid.innerHTML = '';
+
+  ['S','M','T','W','T','F','S'].forEach(function(d) {
+    var el = document.createElement('div'); el.className = 'dow'; el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  var first = new Date(cy, cm, 1).getDay();
+  var total = new Date(cy, cm+1, 0).getDate();
+  var now   = new Date();
+
+  for (var i = 0; i < first; i++) {
+    var blank = document.createElement('div'); blank.className = 'day empty';
+    grid.appendChild(blank);
+  }
+
+  for (var d = 1; d <= total; d++) {
+    var el     = document.createElement('div'); el.className = 'day';
+    el.textContent = d;
+    var k      = dk(cy, cm, d);
+    var dow    = new Date(cy, cm, d).getDay();
+    var isToday= now.getFullYear()===cy && now.getMonth()===cm && now.getDate()===d;
+    var isWk   = dow===0 || dow===6;
+    var isH    = !!HOL[k];
+    var isLast = k==='2026-05-09';
+    var inEx   = cy===2026 && cm===4 && d>=14 && d<=30;
+    var lb     = isLongBreak(cy, cm, d);
+    var tips   = [];
+
+    if      (isToday)          { el.classList.add('today');   tips.push('Today'); }
+    else if (isLast)           { el.classList.add('lastday'); tips.push('Last college day 🎓'); }
+    else if (inEx)             { el.classList.add('exam');    tips.push('Exam period'); }
+    else if (lb && (isH||isWk)){ el.classList.add('lb');      if(isWk&&!isH) tips.push('Long weekend 🎉'); }
+    else if (isH)              { el.classList.add('hol'); }
+    else if (isWk)             { el.classList.add('wknd'); }
+
+    if (HOL[k]) tips.push(HOL[k]);
+    if (AC[k])  tips.push(AC[k]);
+
+    if (tips.length) {
+      var pip = document.createElement('div'); pip.className = 'pip';
+      el.appendChild(pip); el.classList.add('ptr');
+      (function(tipText) {
+        el.addEventListener('mouseenter', function(e) { showTip(e, tipText); });
+        el.addEventListener('mouseleave', hideTip);
+      })(tips.join('\n'));
+    }
+    grid.appendChild(el);
+  }
+}
+
+var tipEl = document.getElementById('tip');
+function showTip(e, t) { tipEl.textContent = t; tipEl.classList.add('show'); moveTip(e); }
+function hideTip()     { tipEl.classList.remove('show'); }
+function moveTip(e)    { tipEl.style.left = (e.clientX+12)+'px'; tipEl.style.top = (e.clientY-38)+'px'; }
+document.addEventListener('mousemove', function(e) {
+  if (tipEl.classList.contains('show')) moveTip(e);
+});
+
+function openCal() {
+  var n = new Date(); cy = n.getFullYear(); cm = n.getMonth();
+  renderCal();
+  document.getElementById('ov').classList.add('open');
+}
+function closeCal() { document.getElementById('ov').classList.remove('open'); }
+
+document.getElementById('ov').addEventListener('click', function(e) {
+  if (e.target === this) closeCal();
+});
+
+function navCal(dir) {
+  cm += dir;
+  if (cm > 11) { cm = 0; cy++; }
+  if (cm < 0)  { cm = 11; cy--; }
+  renderCal();
+}
+</script>
+</body>
+</html>
