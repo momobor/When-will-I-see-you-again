@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Last Chapter — 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --peach:  #F7C59F;
+    --coral:  #E07A5F;
+    --gold:   #F2CC8F;
+    --cream:  #FDFAF5;
+    --warm:   #FAF3E8;
+    --muted:  #C9A98A;
+    --dark:   #2E1A0E;
+    --mid:    #7A4F35;
+    --shadow: rgba(224,122,95,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+
+  /* HERO */
+  .hero{padding:64px 24px 40px;text-align:center;}
+  .eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--coral);font-weight:600;margin-bottom:18px;}
+  .hero h1{font-family:'Lora',serif;font-size:clamp(2.8rem,8vw,5.5rem);font-weight:700;color:var(--dark);line-height:1.05;margin-bottom:14px;}
+  .hero h1 em{font-style:italic;color:var(--coral);}
+  .hero-sub{font-size:15px;color:var(--mid);max-width:360px;margin:0 auto 36px;line-height:1.7;font-weight:400;}
+
+  /* TOGGLE */
+  .toggle{display:inline-flex;background:white;border:1.5px solid var(--peach);border-radius:100px;padding:4px;gap:2px;}
+  .tog{padding:9px 20px;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;color:var(--mid);background:transparent;}
+  .tog.active{background:var(--coral);color:white;box-shadow:0 2px 10px var(--shadow);}
+  .target-lbl{font-size:12px;color:var(--muted);margin-top:10px;font-weight:500;}
+
+  /* COUNTDOWN */
+  .countdown{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:40px 24px 8px;}
+  .cu{background:white;border:1.5px solid var(--peach);border-radius:20px;padding:24px 20px;text-align:center;min-width:100px;transition:transform .2s,box-shadow .2s;}
+  .cu:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow);}
+  .cn{font-family:'Lora',serif;font-size:3.2rem;font-weight:700;color:var(--coral);display:block;line-height:1;}
+  .cl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);margin-top:6px;}
+
+  /* MILESTONE */
+  .milestone{text-align:center;padding:20px 24px 48px;}
+  .ms{display:inline-block;font-size:14px;font-weight:500;color:var(--mid);background:var(--warm);border:1.5px solid var(--peach);border-radius:100px;padding:8px 22px;}
+
+  /* DIVIDER */
+  .div{display:flex;align-items:center;gap:16px;padding:0 32px;margin-bottom:48px;}
+  .div::before,.div::after{content:'';flex:1;height:1px;background:var(--peach);}
+  .div span{font-size:11px;color:var(--muted);white-space:nowrap;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;}
+
+  /* REEL */
+  .reel-hd{padding:0 32px 16px;max-width:900px;margin:0 auto;}
+  .reel-hd h2{font-family:'Lora',serif;font-size:1.4rem;color:var(--dark);font-weight:600;margin-bottom:4px;}
+  .reel-hd p{font-size:12px;color:var(--muted);}
+  .reel-wrap{overflow:hidden;width:100%;position:relative;margin-bottom:8px;}
+  .reel-wrap::before,.reel-wrap::after{content:'';position:absolute;top:0;bottom:0;width:72px;z-index:2;pointer-events:none;}
+  .reel-wrap::before{left:0;background:linear-gradient(to right,var(--cream),transparent);}
+  .reel-wrap::after{right:0;background:linear-gradient(to left,var(--cream),transparent);}
+  .reel-track{display:flex;gap:12px;padding:8px 40px;animation:slide 50s linear infinite;width:max-content;}
+  .reel-track:hover{animation-play-state:paused;}
+  @keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .reel-card{width:175px;height:175px;border-radius:14px;flex-shrink:0;position:relative;overflow:hidden;border:1.5px solid var(--peach);transition:transform .3s,box-shadow .3s;cursor:pointer;}
+  .reel-card:hover{transform:scale(1.05);box-shadow:0 8px 24px rgba(0,0,0,0.12);}
+  .reel-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+  .reel-card:hover img{transform:scale(1.08);}
+  .reel-card .cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(46,26,14,.65),transparent);padding:20px 10px 9px;font-size:10px;font-weight:600;color:white;opacity:0;transition:opacity .3s;line-height:1.3;}
+  .reel-card:hover .cap{opacity:1;}
+  .reel-ph{width:175px;height:175px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2.5rem;border:1.5px solid var(--peach);background:var(--warm);}
+
+  /* MEMORY FORM */
+  .mem-sec{max-width:620px;margin:0 auto;padding:0 24px 64px;}
+  .mem-sec h2{font-family:'Lora',serif;font-size:1.4rem;color:var(--dark);font-weight:600;margin-bottom:5px;}
+  .mem-sec>p{font-size:13px;color:var(--muted);margin-bottom:22px;}
+  .mem-form{background:white;border:1.5px solid var(--peach);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:12px;}
+  .mem-form input,.mem-form textarea{width:100%;padding:10px 13px;border:1.5px solid var(--peach);border-radius:11px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;color:var(--dark);background:var(--cream);outline:none;transition:border-color .2s;}
+  .mem-form input:focus,.mem-form textarea:focus{border-color:var(--coral);}
+  .mem-form textarea{min-height:84px;resize:none;line-height:1.6;}
+  .drop{border:2px dashed var(--peach);border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;background:var(--warm);position:relative;}
+  .drop:hover,.drop.over{border-color:var(--coral);background:rgba(224,122,95,0.05);}
+  .drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .drop-ico{font-size:1.4rem;margin-bottom:5px;}
+  .drop-txt{font-size:13px;color:var(--mid);font-weight:500;}
+  .drop-hint{font-size:11px;color:var(--muted);margin-top:2px;}
+  .previews{display:flex;flex-wrap:wrap;gap:8px;}
+  .thumb{position:relative;width:62px;height:62px;border-radius:9px;overflow:hidden;border:1.5px solid var(--peach);}
+  .thumb img{width:100%;height:100%;object-fit:cover;}
+  .trm{position:absolute;top:2px;right:2px;width:17px;height:17px;border-radius:50%;border:none;background:rgba(46,26,14,.6);color:white;font-size:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .mood-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .mood-lbl{font-size:12px;font-weight:600;color:var(--muted);}
+  .mo{font-size:1.2rem;cursor:pointer;padding:3px 7px;border-radius:7px;border:1.5px solid transparent;transition:all .15s;line-height:1;}
+  .mo:hover{background:var(--warm);border-color:var(--peach);}
+  .mo.sel{background:var(--warm);border-color:var(--coral);transform:scale(1.15);}
+  .form-foot{display:flex;justify-content:flex-end;}
+  .post-btn{background:var(--coral);color:white;border:none;border-radius:100px;padding:10px 24px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 3px 12px var(--shadow);}
+  .post-btn:hover{background:#c96a50;transform:translateY(-2px);}
+
+  /* MEMORY CARDS */
+  .mem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:13px;margin-top:26px;}
+  .mc{background:white;border:1.5px solid var(--peach);border-radius:16px;padding:16px;animation:fu .35s ease;}
+  @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .mc-img{width:100%;height:130px;object-fit:cover;border-radius:10px;margin-bottom:10px;display:block;}
+  .mc-multi{display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:10px;overflow:hidden;margin-bottom:10px;height:110px;}
+  .mc-multi img{width:100%;height:100%;object-fit:cover;display:block;}
+  .mc-emoji{font-size:1.3rem;margin-bottom:7px;}
+  .mc-name{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+  .mc-text{font-size:13px;color:var(--dark);line-height:1.6;}
+  .mc-date{font-size:10px;color:var(--muted);margin-top:9px;}
+
+  /* CALENDAR */
+  .cal-trig{text-align:center;padding:0 24px 64px;}
+  .cal-btn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--peach);border-radius:100px;padding:11px 26px;background:white;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--mid);cursor:pointer;transition:all .2s;}
+  .cal-btn:hover{background:var(--coral);color:white;border-color:var(--coral);box-shadow:0 4px 18px var(--shadow);}
+
+  /* MODAL */
+  .overlay{position:fixed;inset:0;z-index:200;background:rgba(46,26,14,.45);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .overlay.open{opacity:1;pointer-events:all;}
+  .modal{background:var(--cream);border-radius:22px;width:100%;max-width:460px;max-height:88vh;overflow-y:auto;padding:26px;box-shadow:0 24px 64px rgba(0,0,0,0.18);transform:translateY(18px) scale(.97);transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+  .overlay.open .modal{transform:translateY(0) scale(1);}
+  .modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .modal-top h3{font-family:'Lora',serif;font-size:1.25rem;color:var(--dark);font-weight:600;}
+  .xbtn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--peach);background:white;color:var(--mid);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all .2s;}
+  .xbtn:hover{background:var(--coral);color:white;border-color:var(--coral);}
+  .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .nbtn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--peach);background:white;color:var(--mid);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+  .nbtn:hover{background:var(--coral);color:white;border-color:var(--coral);}
+  .cal-ttl{font-family:'Lora',serif;font-size:1.05rem;font-weight:600;color:var(--dark);}
+  .cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+  .dow{text-align:center;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:4px 0 7px;}
+  .day{aspect-ratio:1;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--dark);transition:all .15s;position:relative;}
+  .day.ptr{cursor:pointer;}
+  .day.ptr:hover{background:var(--peach);}
+  .day.empty{pointer-events:none;}
+  .day.today{background:var(--coral);color:white;font-weight:700;}
+  .day.wknd{background:rgba(247,197,159,.28);color:var(--mid);}
+  .day.hol{background:rgba(242,204,143,.55);font-weight:600;}
+  .day.lb{background:rgba(168,230,207,.5);}
+  .day.lb.hol{background:rgba(168,230,207,.7);font-weight:600;}
+  .day.exam{background:rgba(255,179,198,.45);}
+  .day.lastday{background:var(--coral);color:white;font-weight:700;}
+  .day .pip{position:absolute;bottom:2px;width:4px;height:4px;border-radius:50%;background:var(--coral);}
+  .day.today .pip,.day.lastday .pip{background:white;}
+  .legend{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px 14px;}
+  .leg{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--mid);}
+  .lsw{width:13px;height:13px;border-radius:4px;flex-shrink:0;}
+
+  /* TOOLTIP */
+  .tip{position:fixed;z-index:300;pointer-events:none;background:var(--dark);color:white;padding:6px 11px;border-radius:9px;font-size:11px;font-weight:500;line-height:1.5;max-width:190px;white-space:pre-wrap;box-shadow:0 4px 14px rgba(0,0,0,.2);opacity:0;transition:opacity .15s;}
+  .tip.show{opacity:1;}
+
+  /* CONFETTI */
+  .cf{position:fixed;top:-12px;z-index:9999;pointer-events:none;border-radius:3px;animation:cff linear forwards;}
+  @keyframes cff{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(105vh) rotate(540deg);opacity:0}}
+
+  footer{text-align:center;padding:22px;font-size:12px;color:var(--muted);border-top:1px solid var(--peach);}
+  @media(max-width:480px){.cu{min-width:76px;padding:16px 10px;}.cn{font-size:2.4rem;}.reel-card,.reel-ph{width:148px;height:148px;}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Class of 2026 &nbsp;·&nbsp; Final Semester</div>
+  <h1>The <em>Last</em><br>Chapter</h1>
+  <p class="hero-sub">Every class, every laugh, every late night — make them count.</p>
+  <div class="toggle">
+    <button class="tog active" id="togC" onclick="setMode('college')">Last College Day</button>
+    <button class="tog"        id="togE" onclick="setMode('exams')">Last Exam Day</button>
+  </div>
+  <div class="target-lbl" id="tLbl">May 9, 2026 — last instruction day</div>
+</div>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+  <div class="cu"><span class="cn" id="d">--</span><div class="cl">Days</div></div>
+  <div class="cu"><span class="cn" id="h">--</span><div class="cl">Hours</div></div>
+  <div class="cu"><span class="cn" id="m">--</span><div class="cl">Mins</div></div>
+  <div class="cu"><span class="cn" id="s">--</span><div class="cl">Secs</div></div>
+</div>
+<div class="milestone"><span class="ms" id="ms">…</span></div>
+
+<div class="div"><span>memories</span></div>
+
+<!-- REEL -->
+<div class="reel-hd">
+  <h2>Memory Reel</h2>
+  <p>Hover to pause · Photos added below appear here automatically</p>
+</div>
+<div class="reel-wrap">
+  <div class="reel-track" id="reel">
+    <div class="reel-ph">🌅</div>
+    <div class="reel-ph">📚</div>
+    <div class="reel-ph">☕</div>
+    <div class="reel-ph">🎭</div>
+    <div class="reel-ph">🌙</div>
+    <div class="reel-ph">🏆</div>
+    <div class="reel-ph">🌸</div>
+    <div class="reel-ph">✨</div>
+  </div>
+</div>
+
+<div class="div" style="margin-top:40px;"><span>add yours</span></div>
+
+<!-- MEMORY FORM -->
+<div class="mem-sec">
+  <h2>Leave a Memory</h2>
+  <p>Write something, add a photo — it goes straight into the reel and the wall below.</p>
+  <div class="mem-form">
+    <input type="text" id="mName" placeholder="Your name" maxlength="40">
+    <textarea id="mText" placeholder="Write a memory, a feeling, anything…" maxlength="400"></textarea>
+    <div class="drop" id="dz">
+      <input type="file" id="fInput" accept="image/*" multiple onchange="handleFiles(this.files)">
+      <div class="drop-ico">🖼️</div>
+      <div class="drop-txt">Attach photos</div>
+      <div class="drop-hint">Click to browse · optional</div>
+    </div>
+    <div class="previews" id="prevs"></div>
+    <div class="mood-row">
+      <span class="mood-lbl">Mood</span>
+      <span class="mo sel" data-e="🌅" onclick="pickMood(this)">🌅</span>
+      <span class="mo" data-e="💛" onclick="pickMood(this)">💛</span>
+      <span class="mo" data-e="😭" onclick="pickMood(this)">😭</span>
+      <span class="mo" data-e="🥹" onclick="pickMood(this)">🥹</span>
+      <span class="mo" data-e="🎉" onclick="pickMood(this)">🎉</span>
+      <span class="mo" data-e="🫂" onclick="pickMood(this)">🫂</span>
+      <span class="mo" data-e="🔥" onclick="pickMood(this)">🔥</span>
+    </div>
+    <div class="form-foot"><button class="post-btn" onclick="post()">Post Memory</button></div>
+  </div>
+  <div class="mem-grid" id="grid"></div>
+</div>
+
+<div class="div"><span>plan</span></div>
+
+<!-- CALENDAR BUTTON -->
+<div class="cal-trig">
+  <button class="cal-btn" onclick="openCal()"><span>📅</span> Holiday Calendar</button>
+  <p style="font-size:12px;color:var(--muted);margin-top:9px;">Holidays, long weekends &amp; exam dates</p>
+</div>
+
+<footer>Class of 2026 · Your story isn't ending — it's graduating.</footer>
+
+<!-- CALENDAR MODAL -->
+<div class="overlay" id="ov" onclick="ovClick(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <h3>📅 Holiday Calendar</h3>
+      <button class="xbtn" onclick="closeCal()">✕</button>
+    </div>
+    <div class="cal-nav">
+      <button class="nbtn" onclick="nav(-1)">◀</button>
+      <div class="cal-ttl" id="calTtl"></div>
+      <button class="nbtn" onclick="nav(1)">▶</button>
+    </div>
+    <div class="cgrid" id="cgrid"></div>
+    <div class="legend">
+      <div class="leg"><div class="lsw" style="background:rgba(242,204,143,.7)"></div>Holiday</div>
+      <div class="leg"><div class="lsw" style="background:rgba(168,230,207,.7)"></div>Long weekend 🎉</div>
+      <div class="leg"><div class="lsw" style="background:rgba(255,179,198,.6)"></div>Exam period</div>
+      <div class="leg"><div class="lsw" style="background:rgba(247,197,159,.4)"></div>Weekend</div>
+      <div class="leg"><div class="lsw" style="background:var(--coral)"></div>Last day / Today</div>
+    </div>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+// ── DATA ──
+const HOL={
+  '2026-01-15':'Uttarayana Punyakala, Makara Sankranti',
+  '2026-01-16':'Special holiday',
+  '2026-01-24':'Saturday off',
+  '2026-01-26':'Republic Day',
+  '2026-02-21':'Saturday off',
+  '2026-03-19':'Chandramana Ugadi',
+  '2026-03-20':'Special holiday',
+  '2026-03-21':'Khutub-E-Ramzan',
+  '2026-03-31':'Mahaveera Jayanthi',
+  '2026-04-03':'Good Friday',
+  '2026-04-04':'Saturday off',
+  '2026-04-14':'Dr. B.R. Ambedkar Jayanthi',
+  '2026-04-20':'Basava Jayanthi, Akshaya Tritiya',
+  '2026-05-01':'Labour Day / May Day',
+  '2026-05-02':'Saturday off',
+  '2026-05-28':'Bakrid',
+  '2026-06-26':'Day of Muharram (Ashura)',
+  '2026-06-27':'Saturday off',
+  '2026-07-18':'Saturday off',
+  '2026-08-15':'Independence Day',
+  '2026-08-21':'Varamahalakshmi Vrata (restricted)',
+  '2026-08-22':'Saturday off / Special holiday',
+  '2026-08-26':'Eid-Milad',
+  '2026-09-14':'Swarnagowri Vratam / Varasiddhi Vinayaka Vrata',
+  '2026-09-19':'Saturday off',
+  '2026-10-02':'Gandhi Jayanthi',
+  '2026-10-10':'Mahalaya Amavasye',
+  '2026-10-19':'Special holiday',
+  '2026-10-20':'Maha Navami, Ayudhapooja',
+  '2026-10-21':'Vijayadashami',
+  '2026-11-09':'Special holiday',
+  '2026-11-10':'Balipadyami, Deepavali',
+  '2026-11-27':'Kanakadasa Jayanthi',
+  '2026-12-19':'Saturday off',
+  '2026-12-25':'Christmas'
+};
+const AC={
+  '2026-05-09':'Last instruction day 🎓',
+  '2026-05-14':'Examinations begin',
+  '2026-05-22':'Examinations begin (2nd sem)',
+  '2026-05-30':'Last exam day',
+  '2026-06-05':'Last exam day (2nd sem)'
+};
+const T1=new Date('2026-05-09T23:59:59');
+const T2=new Date('2026-05-30T23:59:59');
+let mode='college';
+
+// ── COUNTDOWN ──
+const p=n=>String(n).padStart(2,'0');
+function ms(d){
+  if(d<=0) return 'The chapter is complete.';
+  if(d===1) return 'Tomorrow is the last day.';
+  if(d<=7)  return `${d} days left — make every one count.`;
+  if(d<=30) return `${d} days — one last beautiful month.`;
+  if(d<=60) return `${d} days — still so much to feel.`;
+  return `${d} days remaining.`;
+}
+function tick(){
+  const t=mode==='college'?T1:T2;
+  let df=Math.max(0,t-new Date());
+  const dv=Math.floor(df/864e5),hv=Math.floor(df%864e5/36e5),mv=Math.floor(df%36e5/6e4),sv=Math.floor(df%6e4/1e3);
+  document.getElementById('d').textContent=p(dv);
+  document.getElementById('h').textContent=p(hv);
+  document.getElementById('m').textContent=p(mv);
+  document.getElementById('s').textContent=p(sv);
+  document.getElementById('ms').textContent=ms(dv);
+}
+function setMode(v){
+  mode=v;
+  document.getElementById('togC').classList.toggle('active',v==='college');
+  document.getElementById('togE').classList.toggle('active',v==='exams');
+  document.getElementById('tLbl').textContent=v==='college'?'May 9, 2026 — last instruction day':'May 30, 2026 — last exam day';
+  tick();
+}
+setInterval(tick,1000);tick();
+
+// ── REEL ──
+function addToReel(src,cap){
+  const track=document.getElementById('reel');
+  const card=document.createElement('div');card.className='reel-card';
+  const img=document.createElement('img');img.src=src;
+  const c=document.createElement('div');c.className='cap';c.textContent=cap||'';
+  card.appendChild(img);card.appendChild(c);
+  // insert before first element so newest photos appear first
+  track.insertBefore(card,track.firstChild);
+  const clone=card.cloneNode(true);
+  track.appendChild(clone);
+}
+// Duplicate placeholders for infinite scroll
+window.addEventListener('load',()=>{
+  const t=document.getElementById('reel');
+  [...t.children].forEach(el=>t.appendChild(el.cloneNode(true)));
+});
+
+// ── FILES ──
+let staged=[];
+function handleFiles(files){
+  [...files].forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{staged.push({url:e.target.result,name:f.name.split('.')[0]});renderPrev();};
+    r.readAsDataURL(f);
+  });
+  document.getElementById('fInput').value='';
+}
+function renderPrev(){
+  const w=document.getElementById('prevs');w.innerHTML='';
+  staged.forEach((f,i)=>{
+    const tw=document.createElement('div');tw.className='thumb';
+    const img=document.createElement('img');img.src=f.url;
+    const b=document.createElement('button');b.className='trm';b.textContent='✕';
+    b.onclick=()=>{staged.splice(i,1);renderPrev();};
+    tw.appendChild(img);tw.appendChild(b);w.appendChild(tw);
+  });
+}
+const dz=document.getElementById('dz');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');handleFiles(e.dataTransfer.files);});
+
+// ── STORAGE ──
+function load(){try{return JSON.parse(localStorage.getItem('lc_v2')||'[]');}catch{return[];}}
+function save(a){localStorage.setItem('lc_v2',JSON.stringify(a));}
+let mems=load();
+
+// ── POST ──
+let mood='🌅';
+function pickMood(el){document.querySelectorAll('.mo').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');mood=el.dataset.e;}
+
+const BG=['#FFF8F0','#FFFDF0','#FFF0F4','#F0FFF8','#F0F4FF','#FFF0FA'];
+let bi=0;
+function post(){
+  const name=document.getElementById('mName').value.trim();
+  const text=document.getElementById('mText').value.trim();
+  if(!text&&staged.length===0){document.getElementById('mText').style.borderColor='var(--coral)';return;}
+  document.getElementById('mText').style.borderColor='var(--peach)';
+  const mem={name:name||'Someone',text,mood,photos:staged.map(f=>({url:f.url,nm:f.name})),date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})};
+  mems.unshift(mem);save(mems);
+  mem.photos.forEach(p=>addToReel(p.url,`${mem.name} · ${p.nm}`));
+  document.getElementById('mName').value='';
+  document.getElementById('mText').value='';
+  staged=[];renderPrev();
+  renderMems();confetti();
+}
+function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function renderMems(){
+  const g=document.getElementById('grid');g.innerHTML='';bi=0;
+  mems.forEach(m=>{
+    const c=document.createElement('div');c.className='mc';c.style.background=BG[bi++%BG.length];
+    let h='';
+    if(m.photos&&m.photos.length===1) h+=`<img class="mc-img" src="${m.photos[0].url}" alt="">`;
+    else if(m.photos&&m.photos.length>1) h+=`<div class="mc-multi">`+m.photos.slice(0,4).map(p=>`<img src="${p.url}" alt="">`).join('')+`</div>`;
+    h+=`<div class="mc-emoji">${m.mood}</div><div class="mc-name">${esc(m.name)}</div>`;
+    if(m.text) h+=`<div class="mc-text">${esc(m.text)}</div>`;
+    h+=`<div class="mc-date">${m.date}</div>`;
+    c.innerHTML=h;g.appendChild(c);
+  });
+}
+// restore photos from storage into reel
+mems.forEach(m=>{if(m.photos)m.photos.forEach(p=>addToReel(p.url,`${m.name} · ${p.nm}`));});
+renderMems();
+
+// ── CONFETTI ──
+function confetti(){
+  const cols=['#E07A5F','#F2CC8F','#F7C59F','#FFB3C6','#A8E6CF'];
+  for(let i=0;i<35;i++){
+    const el=document.createElement('div');el.className='cf';
+    el.style.cssText=`left:${Math.random()*100}vw;width:${5+Math.random()*6}px;height:${7+Math.random()*9}px;background:${cols[~~(Math.random()*cols.length)]};animation-duration:${1.3+Math.random()*1.6}s;animation-delay:${Math.random()*.35}s;transform:rotate(${Math.random()*360}deg);border-radius:${Math.random()>.5?'50%':'3px'};`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),3000);
+  }
+}
+
+// ── CALENDAR ──
+let cy=2026,cm=0;
+const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function dk(y,mo,d){return`${y}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
+function isLong(y,mo,d){
+  let n=0;
+  for(let o=-2;o<=2;o++){const nd=new Date(y,mo,d+o);const k=dk(nd.getFullYear(),nd.getMonth(),nd.getDate());const dw=nd.getDay();if(dw===0||dw===6||HOL[k])n++;}
+  return n>=3;
+}
+function renderCal(){
+  document.getElementById('calTtl').textContent=`${MN[cm]} ${cy}`;
+  const g=document.getElementById('cgrid');g.innerHTML='';
+  ['S','M','T','W','T','F','S'].forEach(d=>{const el=document.createElement('div');el.className='dow';el.textContent=d;g.appendChild(el);});
+  const first=new Date(cy,cm,1).getDay(),total=new Date(cy,cm+1,0).getDate(),now=new Date();
+  for(let i=0;i<first;i++){const el=document.createElement('div');el.className='day empty';g.appendChild(el);}
+  for(let d=1;d<=total;d++){
+    const el=document.createElement('div');el.className='day';el.textContent=d;
+    const k=dk(cy,cm,d),dow=new Date(cy,cm,d).getDay();
+    const isToday=now.getFullYear()===cy&&now.getMonth()===cm&&now.getDate()===d;
+    const isWk=dow===0||dow===6,isH=!!HOL[k],isLast=k==='2026-05-09';
+    const inEx=cy===2026&&cm===4&&d>=14&&d<=30,lb=isLong(cy,cm,d);
+    let tips=[];
+    if(isToday)      {el.classList.add('today');tips.push('Today');}
+    else if(isLast)  {el.classList.add('lastday');tips.push('Last college day 🎓');}
+    else if(inEx)    {el.classList.add('exam');tips.push('Exam period');}
+    else if(lb&&(isH||isWk)){el.classList.add('lb');if(isWk&&!isH)tips.push('Long weekend 🎉');}
+    else if(isH)     {el.classList.add('hol');}
+    else if(isWk)    {el.classList.add('wknd');}
+    if(HOL[k]) tips.push(HOL[k]);
+    if(AC[k])  tips.push(AC[k]);
+    if(tips.length){
+      const pip=document.createElement('div');pip.className='pip';el.appendChild(pip);
+      el.classList.add('ptr');
+      el.addEventListener('mouseenter',e=>showTip(e,tips.join('\n')));
+      el.addEventListener('mouseleave',hideTip);
+    }
+    g.appendChild(el);
+  }
+}
+const tipEl=document.getElementById('tip');
+function showTip(e,t){tipEl.textContent=t;tipEl.classList.add('show');mv(e);}
+function hideTip(){tipEl.classList.remove('show');}
+function mv(e){tipEl.style.left=(e.clientX+12)+'px';tipEl.style.top=(e.clientY-38)+'px';}
+document.addEventListener('mousemove',e=>{if(tipEl.classList.contains('show'))mv(e);});
+function openCal(){const n=new Date();cy=n.getFullYear();cm=n.getMonth();renderCal();document.getElementById('ov').classList.add('open');}
+function closeCal(){document.getElementById('ov').classList.remove('open');}
+function ovClick(e){if(e.target.id==='ov')closeCal();}
+function nav(dir){cm+=dir;if(cm>11){cm=0;cy++;}if(cm<0){cm=11;cy--;}renderCal();}
+</script>
+</body>
+</html>
