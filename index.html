@@ -514,8 +514,9 @@ setInterval(tick,1000); tick();
 let reelPhotos=[];
 function buildReel(){
   const track=document.getElementById('reel');
+  const wrap=document.getElementById('reelWrap');
   track.innerHTML='';
-  if(reelPhotos.length===0) return;
+  if(reelPhotos.length===0){ wrap.style.visibility='hidden'; return; }
   let pool=[...reelPhotos];
   while(pool.length<12) pool=[...pool,...reelPhotos];
   const makeCard=({src,caption})=>{
@@ -527,6 +528,7 @@ function buildReel(){
   pool.forEach(p=>track.appendChild(makeCard(p)));
   pool.forEach(p=>track.appendChild(makeCard(p)));
   track.style.animation=`slide ${pool.length*4}s linear infinite`;
+  wrap.style.visibility='visible';
 }
 function refreshReel(photos){ reelPhotos=photos; buildReel(); }
 function clearReelPhotos(){ reelPhotos=[]; }
